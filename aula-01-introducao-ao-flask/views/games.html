@@ -12,14 +12,28 @@
     {#Esse é um comentário em jinja 2 #}
 
     <p>Game mais jogado no momento: </p>
-    <ul>
-        <li>Titulo: {{titulo}}</li>
-        <li>Ano: {{ano}}</li>
-        <li>Categoria: {{categoria}}</li>
-    </ul>
-    <p>O jogo {{titulo}} tem {{2025 - ano}} anos.</p>
+
+
+    <!-- <ul>
+        <li>Titulo: {# {titulo} #}</li>
+        <li>Ano: {# {ano} #}</li>
+        <li>Categoria: {# {categoria} #}</li>
+    </ul> -->
+
+    <!-- Percorrendo o dicionário -->
+     {% for chave, valor in game.items() %}
+     <details>
+        <summary>
+            {{chave}}
+        </summary>
+        {{valor}}
+     </details>
+     {% endfor %}
+
+<!-- Exiba o titulo do game -->
+    <p>O jogo {{game['Titulo']}} tem {{2025 - game['Ano']}} anos.</p>
     <hr>
-    <p>O jogo {{titulo}} tem esses npcs casáveis:</p>
+    <p>O jogo {{game['Titulo']}} possui os seguintes npcs casáveis:</p>
 
     {#for#}
     <ol> 
@@ -37,5 +51,8 @@
         {% endfor %}
     </ul>
 
+    {#Variavel é {{}} #}
+    {#Código python  {%%} #}
+    {#Um objeto é compoosto por chaves e valor#}
 </body>
 </html>
