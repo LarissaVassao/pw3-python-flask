@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de jogos</title>
+</head>
+<body>
+
+    {% extends 'base.html' %}
+    {% block content %}
+        <h1>Bem-vindo a página de jogos!</h1>
+        <hr>
+
+        {#Esse é um comentário em jinja 2 #}
+
+        <p>Game mais jogado no momento: </p>
+
+
+        <!-- <ul>
+            <li>Titulo: {# {titulo} #}</li>
+            <li>Ano: {# {ano} #}</li>
+            <li>Categoria: {# {categoria} #}</li>
+        </ul> -->
+
+        <!-- Percorrendo o dicionário -->
+        {% for chave, valor in game.items() %}
+        <details>
+            <summary>
+                {{chave}}
+            </summary>
+            {{valor}}
+        </details>
+        {% endfor %}
+
+    <!-- Exiba o titulo do game -->
+        <p>O jogo {{game['Titulo']}} tem {{2025 - game['Ano']}} anos.</p>
+        <hr>
+        <p>O jogo {{game['Titulo']}} possui os seguintes npcs casáveis:</p>
+
+        {#for#}
+        <ol> 
+            {% for npc in npcs %}
+            <li>{{npc}}</li>
+            {% endfor %}
+        </ol>
+        <hr>
+
+
+    <h4> Escolher casável: </h4>
+    <form action="{{url_for('games')}}" method="POST"> 
+        <label> NPC: </label>
+        <input type="text" name="npc">
+        <input type="submit" name="Entrar">
+    </form>
+
+
+
+        {#Iterar uma lista com o nome de 6 jogos #}
+        <p>Outros games sendo jogados no momento:</p>
+        <ul> 
+            {% for jogo in jogos %}
+            <li>{{jogo}}</li>
+            {% endfor %}
+        </ul>
+
+        {#Variavel é {{}} #}
+        {#Código python  {%%} #}
+        {#Um objeto é compoosto por chaves e valor#}
+
+    {% endblock content %}
+</body>
+</html>
