@@ -20,11 +20,10 @@
     <br>
     <hr>
     <h4> Games cadastrados: </h4>
-    {% for consoles in consoles %}
+    {% for game in gamelist %}
     Titulo: <strong>{{game.Titulo}}</strong> <br>
-    Fabricante: <strong>{{game.Fabricante}}</strong><br>
     Ano: <strong>{{game.Ano}}</strong><br>
-    Preço: <strong>{{game.Preço}}</strong><br><br>
+    Fabricante: <strong>{{game.Categoria}}</strong><br><br>
     {%endfor%}
 
 </body>

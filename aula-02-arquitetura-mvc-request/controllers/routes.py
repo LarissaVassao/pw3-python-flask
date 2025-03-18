@@ -8,6 +8,13 @@ gamelist = [{
             'Ano' : 2016,
             'Categoria': 'Simulação',
         }]
+consolelist = [{
+    'Nome' : 'Playstation 5',
+    'Fabricante' : 'Sony',
+    'Ano' : '2020',
+    'Preco' : '500',
+}
+]
         
 def init_app(app):
     # Criando a primeira rota do site
@@ -51,14 +58,17 @@ def init_app(app):
                                gamelist=gamelist)
         
         
+        
+        
     @app.route('/consoles', methods=['GET', 'POST'])
     def consoles():
         if request.method == 'POST':
             if request.form.get('nome') and request.form.get ('fabricante') and request.form.get('ano') and request.form.get('preco'):
-                gamelist.append({'Nome' : request.form.get('nome'),
+                consolelist.append({'Nome' : request.form.get('nome'),
                                  'Fabricante' : request.form.get('fabricante'),  
                                  'Ano' : request.form.get('ano'), 
                                  'Preco' : request.form.get('preco')})
                 return redirect(url_for('consoles'))
-            return render_template('consoles.html')
+        return render_template('consoles.html',
+                                   consolelist=consolelist)
             
