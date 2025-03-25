@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de jogos</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    {% extends 'base.html' %}
-    {% block content %}
+{% block content %}
         <h1>Bem-vindo a página de jogos!</h1>
         <hr>
 
@@ -68,6 +60,4 @@
         {#Código python  {%%} #}
         {#Um objeto é compoosto por chaves e valor#}
 
-    {% endblock content %}
-</body>
-</html>
+{% endblock content %}
