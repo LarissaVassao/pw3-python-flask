@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from models.database import Game, Console
+from models.database import Game, Console, db
 
 # Lista de jogadores
 jogadores = ['Miguel José', 'Miguel Isack', 'Leaf',
@@ -47,8 +47,38 @@ def init_app(app):
                                gamelist=gamelist)
         
     #Rota de estoque (Crud)
-    @app.route('/estoque')
-    def estoque():
+    @app.route('/estoque', methods=['GET', 'POST'])
+    @app.route('/estoque/<int:id>')
+    def estoque(id=None):
+        #verificanso se foi enviado alguma id
+        if id:
+            game = Game.query.get(id)
+            #Deletando o jogo
+            db.session.delete(game)
+            db.session.commit()
+            return redirect(url_for('estoque'))
+
+
+        
+        #verificando se a requisição é POST
+        
+        # = -> Atribuição
+        # == -> Comparação simples
+        # === -: Compara o valor e tipo da variável
+        if request.method == 'POST':
+           newgame = Game(request.form['titulo'], request.form['ano'],request.form['categoria'],request.form['plataforma'], request.form['preco'], request.form['quantidade'])
+           #enviando para o banco
+           db.session.add(newgame)
+           db.session.commit()
+           return redirect (url_for('estoque'))
+           
+        if request.method == 'POST':
+            newconsole = Console(request.form['nome'],request.form['fabricante'], request.form['preco'], request.form['quantidade'])
+            db.session.add(newconsole)
+            db.session.commit()
+            return redirect (url_for('estoque'))
+            
+            
         #Fazendo um select no banco (pegando todos os jogos da tabela)
         gamesestoque = Game.query.all()
         consolesestoque = Console.query.all()
