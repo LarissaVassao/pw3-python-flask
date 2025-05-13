@@ -57,31 +57,38 @@ def init_app(app):
             db.session.delete(game)
             db.session.commit()
             return redirect(url_for('estoque'))
-
-
-        
+   
         #verificando se a requisição é POST
         
         # = -> Atribuição
         # == -> Comparação simples
         # === -: Compara o valor e tipo da variável
-        if request.method == 'POST':
-           newgame = Game(request.form['titulo'], request.form['ano'],request.form['categoria'],request.form['plataforma'], request.form['preco'], request.form['quantidade'])
-           #enviando para o banco
-           db.session.add(newgame)
-           db.session.commit()
-           return redirect (url_for('estoque'))
-           
-        if request.method == 'POST':
-            newconsole = Console(request.form['nome'],request.form['fabricante'], request.form['preco'], request.form['quantidade'])
-            db.session.add(newconsole)
-            db.session.commit()
-            return redirect (url_for('estoque'))
+        if request.method == 'POST': 
+                newgame = Game(request.form['titulo'], request.form['ano'],request.form['categoria'],request.form['plataforma'], request.form['preco'], request.form['quantidade'])
+                #enviando para o banco
+                db.session.add(newgame)
+                db.session.commit()
+                return redirect (url_for('estoque'))
             
-            
-        #Fazendo um select no banco (pegando todos os jogos da tabela)
         gamesestoque = Game.query.all()
+        return render_template('estoque.html', gamesestoque = gamesestoque)
+            
+            
+    @app.route('/estoqueconsole', methods=['GET', 'POST'])
+    @app.route('/estoqueconsole/<int:id>') 
+    def estoqueconsole(id=None):
+        if id:
+            console = Console.query.get(id)
+            db.session.delete(console)
+            db.session.commit()
+            return redirect(url_for('estoqueconsole'))
+        
+        if request.method == 'POST':
+                newconsole = Console(request.form['nome'],request.form['fabricante'], request.form['preco'], request.form['quantidade'])
+                db.session.add(newconsole)
+                db.session.commit()
+                return redirect (url_for('estoqueconsole'))
+                
         consolesestoque = Console.query.all()
-        return render_template('estoque.html', gamesestoque = gamesestoque, consolesestoque=consolesestoque)
-    
+        return render_template('estoqueconsole.html', consolesestoque = consolesestoque)
     
