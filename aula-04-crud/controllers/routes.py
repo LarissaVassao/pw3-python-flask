@@ -108,5 +108,21 @@ def init_app(app):
             game.preco = request.form['preco'] 
             game.quantidade = request.form['quantidade']
             db.session.commit()
-            return redirect(url_for(    'estoque'))
+            return redirect(url_for('estoque'))
         return render_template('editgame.html', game=game)
+    
+        
+
+#ROTA DE EDIÇÃO DE CONSOLE
+    @app.route('/editconsole/<int:id>', methods=['GET', 'POST'])
+    def editconsole(id):
+        console = Console.query.get(id)
+        
+        if request.method == 'POST':
+            console.nome = request.form['nome']
+            console.fabricante = request.form['fabricante']
+            console.preco = request.form['preco'] 
+            console.quantidade = request.form['quantidade']
+            db.session.commit()
+            return redirect(url_for('estoqueconsole'))
+        return render_template('editconsole.html', console=console)
