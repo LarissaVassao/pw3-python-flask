@@ -1,6 +1,27 @@
-{% for jogo in listaJogos %}
-<p>{{jogo.title}}</p>
-<img src="{{jogo.thumbnail}}">
-<p>{{jogo.genre}}</p>
-<p>{{jogo.platform}}</p>
-{% endfor %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="border: 1px #000;">
+    <div class="row">
+            {% for games in gameList %}
+            <div class="col-md-3 m-auto">
+                <div class="card" style="width: 16 rem;">
+                    <img src="{{games.thumbnail}}">
+                    <div class="card-body">
+                        <h5>Título: {{games.title}}</h5>
+                        <p>Gênero: {{games.genre}}</p>
+                        <p>Plataforma: {{games.platform}}</p>
+                        <div class="p-1" style="background-color: #ababab;border-radius: 8px;border: solid 1px #FFF;">
+                            <strong>Jogar agora: </strong>
+                            <a href="{{games.game_url}}">Play now</a>
+                        </div>
+                        <div class="p-1" style="background-color: #ababab;border-radius: 8px;border: solid 1px #FFF;">
+                            <a href="{{url_for('apigames', id=games.id)}}">More info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

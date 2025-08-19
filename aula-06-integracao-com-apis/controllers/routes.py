@@ -122,12 +122,27 @@ def init_app(app):
             return redirect(url_for('consolesEstoque'))
         return render_template('editconsole.html', console=console)
 
-    #Rpda de Catálogo de Jogos (Consumo de API)
-    @app.route('/apigames',  methods=['GET', 'POST'])
-    def apigames():
-        urlApi ='https://www.freetogame.com/api/games'
-        response = urllib.request.urlopen(urlApi)
-        apiData = response.read()
-        listaJogos = json.loads(apiData)
-        return render_template('apigames.html', listaJogos=listaJogos)
-    
+    # Rota de catálogo de jogos (Consumo da API)
+    @app.route("/apigames", methods=['GET', 'POST'])
+    @app.route('/apigames/<int:id>', methods=['GET', 'POST'])
+    def apigames(id=None):       
+        BASE_URL = "https://www.freetogame.com/api"
+        response = urllib.request.urlopen(BASE_URL + "/games") # URL PESQUISADA: "https://www.freetogame.com/api/games"
+        apiData = response.read() # lê a resposta da API
+        gameList = json.loads(apiData) # converte JSON para dicionário
+        
+        # Buscando o jogo individual na lista de jogos
+        if id:
+            gameInfo = []
+            for game in gameList:
+                if game['id'] == id:
+                    gameInfo = game
+                    break
+                
+            if gameInfo:
+                return render_template("gameinfo.html", gameInfo=gameInfo)
+            else:
+                return f'Não foi possível encontrar o nome com esse ID: {id}!'
+                
+        return render_template("apigames.html", gameList=gameList)
+        
