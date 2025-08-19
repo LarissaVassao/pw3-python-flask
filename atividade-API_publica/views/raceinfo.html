@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{{url_for('apidnd')}}" class="btn btn-dark">Voltar para todos as raças!</a><br><br>
+
+<h3>{{raceInfo.name}}</h3>
+<p>Velocidade: {{raceInfo.speed}} feet</p>
+<p>{{raceInfo.age}}</p>
+<p>{{raceInfo.alignment}}</p>
+<p>{{raceInfo.size}}</p>
+<p>{{raceInfo.size_description}}</p>
+
+{% endblock content %}
