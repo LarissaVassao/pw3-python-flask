@@ -3,12 +3,13 @@
 <div class="container" style="border: 1px #000;">
     <div class="row">
         {% for race in raceList%}  
-            <div class="col-md-3 m-auto">
-                <div class="card" style="width: 16 rem;">
+
+            <div class="col-md-3 m-auto" >
+                <div class="card bg-dark" style="width: 16 rem;">
                     <div class="card-body">
-                        <h5>Raça: {{race.name}}</h5>
-                        <div class="p-1" style="background-color: #ababab; border-radius: 8px; border: solid 1px #FFF;">
-                            <a href="{{url_for('apidnd', id=race.id)}}">Ver detalhes</a>
+                        <h5 class="text-light">Raça: {{race.name}}</h5>
+                        <div class="p-1" style="background-color: #2a2a2b; border-radius: 8px; border: solid 1px #0f0f0f; text-align: center;">
+                            <a href="{{url_for('apidnd', id=race.index)}}" style="color: #ff2c2c;">Ver detalhes</a>
                         </div>
                     </div>
                 </div>

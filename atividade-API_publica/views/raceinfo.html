@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{{url_for('apidnd')}}" class="btn btn-dark">Voltar para todos as raças!</a><br><br>
+<div class="text-center mb-4 " >
+    <a href="{{url_for('apidnd')}}" class="btn btn-danger">Voltar para todas as raças!</a>
+</div>    <div>
+        <h3 class="font-weight-bold text-light" style="text-align: center;">{{raceInfo.name}}</h3>
+        <div class="p-4 text-light">
+            <p>Move: {{raceInfo.speed}} feet</p>
+            <p>Age: {{raceInfo.age}}</p>
+            <p>Alignment: {{raceInfo.alignment}}</p>
+            <p>Size: {{raceInfo.size}}</p>
+            <p>Size description: {{raceInfo.size_description}}</p>
+            <p>Language description: {{raceInfo.language_desc}}</p>
 
-<h3>{{raceInfo.name}}</h3>
-<p>Velocidade: {{raceInfo.speed}} feet</p>
-<p>{{raceInfo.age}}</p>
-<p>{{raceInfo.alignment}}</p>
-<p>{{raceInfo.size}}</p>
-<p>{{raceInfo.size_description}}</p>
-
+     </div>
 {% endblock content %}
