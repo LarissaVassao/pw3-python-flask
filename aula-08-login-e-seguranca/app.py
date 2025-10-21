@@ -1,60 +1,49 @@
-# Importando o Flask
-from flask import Flask, render_template
-# Importando o PyMySQL
-import pymysql
-# Importando as rotas que estão nos controllers
-from controllers import routes
-# Importando os models
+from flask import Flask
 from models.database import db
-
-# Carregando o Flask na variável app
+import mysql.connector
+from mysql.connector import errorcode
+ 
 app = Flask(__name__, template_folder='views')
-
-# Chamando as rotas
-routes.init_app(app)
-
-# Define o nome do banco de dados
-DB_NAME = 'thegames'
-# Configura o Flask com o banco definido
+ 
+DB_NAME = 'galeria'  # Corrija o nome aqui
 app.config['DATABASE_NAME'] = DB_NAME
-
-# Passando o endereço do banco ao Flask
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:admin@localhost/{DB_NAME}'
-
-# Chave secreta para as FLASH MESSAGES e também SESSÕES
-app.config['SECRET_KEY'] = 'thegamessecret'
-
-# Definindo um tempo limite para sessão
-app.config['PERMANENT_SESSION_LIFETIME'] = 1800 # (30 minutos)
-
-# Iniciando o servidor no localhost, porta 5000, modo de depuração ativado
-if __name__ == '__main__':
-    # Criando os dados de conexão:
-    connection = pymysql.connect(host='localhost',
-                                 user='root',
-                                 password='admin',
-                                 charset='utf8mb4',
-                                 cursorclass=pymysql.cursors.DictCursor)
-    # Tentando criar o banco
-    # Try, trata o sucesso
+ 
+def get_db_connection():
+    connection = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database=DB_NAME
+    )
+    return connection
+ 
+def create_database():
     try:
-        # with cria um recurso temporariamente
-        with connection.cursor() as cursor:  # alias
-            # Cria o banco de dados (se ele não existir)
-            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DB_NAME}")
-            print(f"O banco de dados {DB_NAME} está criado!")
-    # Except, trata a falha
-    except Exception as e:
-        print(f"Erro ao criar o banco de dados: {e}")
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password=''
+        )
+        cursor = connection.cursor()
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DB_NAME}")
+        print(f"O banco de dados {DB_NAME} está criado!")
+    except mysql.connector.Error as err:
+        print(f"Erro ao criar o banco de dados: {err}")
     finally:
-        connection.close()
-
-    # Passando o flask para SQLAlchemy
-    db.init_app(app=app)
-
-    # Criando as tabelas a partir do model
-    with app.test_request_context():
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+ 
+if __name__ == "__main__":
+    create_database()  # Cria banco, se necessário
+ 
+    # Inicializa SQLAlchemy com o app
+    db.init_app(app)
+ 
+    # Cria as tabelas a partir dos models (se ainda não existirem)
+    with app.app_context():
         db.create_all()
-
-    # Inicializando a aplicação Flask
+ 
+    # Inicia o servidor Flask
     app.run(host='localhost', port=5000, debug=True)
+ 

@@ -212,3 +212,7 @@ def init_app(app):
                 flash("Cadastro realizado com sucesso! Faça o login.", "success")
                 return redirect(url_for('login'))
         return render_template('caduser.html')
+    
+    @app.route('/galeria', methods=['GET', 'POST'])
+    def galeria():
+     return render_template('galeria.html')
