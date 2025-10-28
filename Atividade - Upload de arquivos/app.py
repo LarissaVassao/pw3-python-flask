@@ -19,7 +19,7 @@ DB_NAME = 'thegames'
 app.config['DATABASE_NAME'] = DB_NAME
 
 # Passando o endereço do banco ao Flask
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:admin@localhost/{DB_NAME}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:@localhost/{DB_NAME}'
 
 # Chave secreta para as FLASH MESSAGES e também SESSÕES
 app.config['SECRET_KEY'] = 'thegamessecret'
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # Criando os dados de conexão:
     connection = pymysql.connect(host='localhost',
                                  user='root',
-                                 password='admin',
+                                 password='',
                                  charset='utf8mb4',
                                  cursorclass=pymysql.cursors.DictCursor)
     # Tentando criar o banco
@@ -58,3 +58,8 @@ if __name__ == '__main__':
 
     # Inicializando a aplicação Flask
     app.run(host='localhost', port=5000, debug=True)
+
+# Define pasta que receberá arquivos de upload
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+# Define o tamanho máximo de um arquivo de upload
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024

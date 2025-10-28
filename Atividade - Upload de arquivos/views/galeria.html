@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="text-align: center;">Galeria</h2>
+<div class="row">
+    {% for img in imagens %}
+        <div class="col-md-3 m-auto">
+            <img src="/static/uploads/{{img.filename}}" class="img-thumbnail">
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
