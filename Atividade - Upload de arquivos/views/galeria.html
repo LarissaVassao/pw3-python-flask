@@ -8,11 +8,7 @@
         </div>
         {% endfor %}
     {% endwith %}
-
-
     <h2 style="text-align: center;">Galeria</h2><br>
-
-
     <div class="container col-6">
         <div class="card mt-4">
             <div class="card-body">
@@ -24,13 +20,11 @@
             </div>
         </div>
     </div>
-
     <hr>
-
     <div class="row">
         {% for img in imagens %}
             <div class="col-md-3 m-auto">
-                <img src="/static/uploads/{{img.url}}" alt="{{img.alt}}" class="img-thumbnail">
+                <img src="/static/uploads/{{img.filename}}" alt="{{img.alt}}" class="img-thumbnail" style="width: 100px; height: 100px;">
             </div>
         {% endfor %}
     </div>

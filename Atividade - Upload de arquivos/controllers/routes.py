@@ -225,6 +225,8 @@ def init_app(app):
     def galeria():
         # Seleciona os nomes dos arquivos de imagens no banco
         imagens = Imagem.query.all()
+        print(imagens)
+        
         if request.method == 'POST':
             # Captura o arquivo vindo do formulário
             file = request.files['file']
