@@ -245,4 +245,4 @@ def init_app(app):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash("Imagem enviada com sucesso!", 'success')
             return redirect(url_for('galeria'))
-        return render_template('galeria.html')
+        return render_template('galeria.html', imagens=imagens)

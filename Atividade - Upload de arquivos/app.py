@@ -27,6 +27,12 @@ app.config['SECRET_KEY'] = 'thegamessecret'
 # Definindo um tempo limite para sessão
 app.config['PERMANENT_SESSION_LIFETIME'] = 1800 # (30 minutos)
 
+
+# Define pasta que receberá arquivos de upload
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+# Define o tamanho máximo de um arquivo de upload
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
 # Iniciando o servidor no localhost, porta 5000, modo de depuração ativado
 if __name__ == '__main__':
     # Criando os dados de conexão:
@@ -58,8 +64,3 @@ if __name__ == '__main__':
 
     # Inicializando a aplicação Flask
     app.run(host='localhost', port=5000, debug=True)
-
-# Define pasta que receberá arquivos de upload
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-# Define o tamanho máximo de um arquivo de upload
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
